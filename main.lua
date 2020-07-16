@@ -2,8 +2,6 @@ require 'src/dependencies'
 
 function love.load()
 	love.graphics.setDefaultFilter('nearest', 'nearest')
-	
-	math.randomseed(os.time())
 
 	push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
 		vsync = true,
@@ -26,7 +24,7 @@ function love.keyboard.wasPressed(key)
 	return love.keyboard.keysPressed[key]
 end
 
-tileGenerator = TileGenerator('graphics/tile-1.png')
+tileGenerator = TileGenerator({ 'graphics/tile-1.png', 'graphics/tile-2.png' }, true)
 tiles = tileGenerator:generateTiles()
 
 function love.update(dt)
@@ -87,5 +85,16 @@ function love.draw()
 		end
 	end
 
+	drawDisplay()
+
 	push:apply('end')
+end
+
+function drawDisplay()
+	love.graphics.setColor(255, 0, 0, 255)
+	love.graphics.print('Tiling Demonstration', 5, 5)
+	love.graphics.print('Brandon M Weaver', 5, 25)
+	love.graphics.print(tostring(love.timer.getTime()), 5, 45)
+	love.graphics.print('FPS: ' .. tostring(love.timer.getFPS()), 5, 65)
+	love.graphics.setColor(255, 255, 255, 255)
 end

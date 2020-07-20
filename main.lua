@@ -24,7 +24,8 @@ function love.keyboard.wasPressed(key)
 	return love.keyboard.keysPressed[key]
 end
 
-tileGenerator = TileGenerator({ 'graphics/tile-1.png', 'graphics/tile-2.png' }, true)
+tileGenerator = TileGenerator({ 'graphics/tile-1.png', 'graphics/tile-2.png' })
+tileGenerator.randomization = true
 tiles = tileGenerator:generateTiles()
 
 function love.update(dt)

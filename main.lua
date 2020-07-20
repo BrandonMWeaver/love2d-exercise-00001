@@ -25,8 +25,24 @@ function love.keyboard.wasPressed(key)
 end
 
 tileGenerator = TileGenerator({ 'graphics/tile-1.png', 'graphics/tile-2.png' })
+
+blocks = {
+	tileGenerator:generateTiles(20, 20, 5, 5),
+	tileGenerator:generateTiles(20 * 7, 20, 5, 10),
+	tileGenerator:generateTiles(20, 20 * 7, 5, 5)
+}
+
 tileGenerator.randomization = true
-tiles = tileGenerator:generateTiles()
+
+table.insert(blocks, tileGenerator:generateTiles(20 * 7, 20 * 7, 10, 10))
+
+tiles = {}
+
+for i, block in pairs(blocks) do
+	for j, tile in pairs(block) do
+		table.insert(tiles, tile)
+	end
+end
 
 function love.update(dt)
 	if love.keyboard.wasPressed('escape') then
@@ -79,11 +95,6 @@ function love.draw()
 
 	for k, tile in pairs(tiles) do
 		love.graphics.draw(tile.image, tile.x, tile.y)
-		if k == 32 then
-			love.graphics.setColor(255, 0, 0, 255)
-			love.graphics.rectangle('line', tile.x, tile.y, 20, 20)
-			love.graphics.setColor(255, 255, 255, 255)
-		end
 	end
 
 	drawDisplay()

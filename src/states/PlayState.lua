@@ -14,7 +14,7 @@ function PlayState:update(dt)
 	end
 
 	if love.keyboard.wasPressed('escape') then
-		gStateMachine:change('start', { title = 'PRESS ENTER TO START' })
+		gStateMachine:change('start', { title = 'EXAMPLE TITLE' })
 	end
 	
 	if not self.isPaused then

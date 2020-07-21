@@ -14,7 +14,7 @@ function love.load()
 		['play'] = function() return PlayState() end
 	}
 
-	gStateMachine:change('start', { title = 'PRESS ENTER TO START' })
+	gStateMachine:change('start', { title = 'EXAMPLE TITLE' })
 
 	love.keyboard.keysPressed = {}
 end

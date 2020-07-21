@@ -32,10 +32,6 @@ function love.keyboard.wasPressed(key)
 end
 
 function love.update(dt)
-	if love.keyboard.wasPressed('escape') then
-		love.event.quit()
-	end
-
 	gStateMachine:update(dt)
 
 	love.keyboard.keysPressed = {}

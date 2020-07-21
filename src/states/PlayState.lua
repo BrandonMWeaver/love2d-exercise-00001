@@ -4,44 +4,56 @@ function PlayState:enter(params)
 	tileGenerator = TileGenerator({ 'graphics/tile-1.png', 'graphics/tile-2.png' })
 	tileGenerator.randomization = true
 	self.tiles = tileGenerator:generateTiles(0, 0)
+
+	self.isPaused = false
 end
 
 function PlayState:update(dt)
-	for k, tile in pairs(self.tiles) do
-		if tile.y > VIRTUAL_HEIGHT then
-			tile.y = -tileGenerator.height + 1
-		end
-
-		if tile.y <= -tileGenerator.height then
-			tile.y = VIRTUAL_HEIGHT
-		end
-
-		if tile.x > VIRTUAL_WIDTH then
-			tile.x = -tileGenerator.width + 1
-		end
-
-		if tile.x <= -tileGenerator.width then
-			tile.x = VIRTUAL_WIDTH
-		end
+	if love.keyboard.wasPressed('p') then
+		self.isPaused = not self.isPaused
 	end
 
-	if love.keyboard.isDown('w') then
-		for k, tile in pairs(self.tiles) do
-			tile.y = tile.y + 1
-		end
-	elseif love.keyboard.isDown('s') then
-		for k, tile in pairs(self.tiles) do
-			tile.y = tile.y - 1
-		end
+	if love.keyboard.wasPressed('escape') then
+		gStateMachine:change('start', { title = 'PRESS ENTER TO START' })
 	end
+	
+	if not self.isPaused then
+		for k, tile in pairs(self.tiles) do
+			if tile.y > VIRTUAL_HEIGHT then
+				tile.y = -tileGenerator.height + 1
+			end
 
-	if love.keyboard.isDown('a') then
-		for k, tile in pairs(self.tiles) do
-			tile.x = tile.x + 1
+			if tile.y <= -tileGenerator.height then
+				tile.y = VIRTUAL_HEIGHT
+			end
+
+			if tile.x > VIRTUAL_WIDTH then
+				tile.x = -tileGenerator.width + 1
+			end
+
+			if tile.x <= -tileGenerator.width then
+				tile.x = VIRTUAL_WIDTH
+			end
 		end
-	elseif love.keyboard.isDown('d') then
-		for k, tile in pairs(self.tiles) do
-			tile.x = tile.x - 1
+
+		if love.keyboard.isDown('w') then
+			for k, tile in pairs(self.tiles) do
+				tile.y = tile.y + 1
+			end
+		elseif love.keyboard.isDown('s') then
+			for k, tile in pairs(self.tiles) do
+				tile.y = tile.y - 1
+			end
+		end
+
+		if love.keyboard.isDown('a') then
+			for k, tile in pairs(self.tiles) do
+				tile.x = tile.x + 1
+			end
+		elseif love.keyboard.isDown('d') then
+			for k, tile in pairs(self.tiles) do
+				tile.x = tile.x - 1
+			end
 		end
 	end
 end
@@ -51,7 +63,11 @@ function PlayState:render()
 		love.graphics.draw(tile.image, tile.x, tile.y)
 	end
 
-	drawDisplay()
+	if not self.isPaused then
+		drawDisplay()
+	else
+		love.graphics.print('PAUSED', 5, 5)
+	end
 end
 
 function drawDisplay()

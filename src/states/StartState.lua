@@ -22,7 +22,7 @@ function StartState:update(dt)
 		end
 	end
 
-	if love.keyboard.wasPressed('up') then
+	if love.keyboard.wasPressed('up') or love.keyboard.wasPressed('w') then
 		if self.menuIndex == #self.menu then
 			self.menuIndex = 1
 		else
@@ -30,7 +30,7 @@ function StartState:update(dt)
 		end
 	end
 
-	if love.keyboard.wasPressed('down') then
+	if love.keyboard.wasPressed('down') or love.keyboard.wasPressed('s') then
 		if self.menuIndex == 1 then
 			self.menuIndex = #self.menu
 		else
@@ -40,6 +40,10 @@ function StartState:update(dt)
 end
 
 function StartState:render()
+	love.graphics.setColor(155, 155, 155, 255)
+	love.graphics.rectangle('fill', 0, 0, VIRTUAL_WIDTH, VIRTUAL_HEIGHT)
+	love.graphics.setColor(255, 255, 255, 255)
+
 	love.graphics.print(self.title, 5, 5)
 
 	local verticalMargin = 25
@@ -47,10 +51,11 @@ function StartState:render()
 	for k, selection in pairs(self.menu) do
 		if k == self.menuIndex then
 			love.graphics.setColor(0, 0, 255, 255)
+			love.graphics.print('- ' .. selection, 5, verticalMargin)
 		else
 			love.graphics.setColor(255, 255, 255, 255)
+			love.graphics.print(selection, 5, verticalMargin)
 		end
-		love.graphics.print(selection, 5, verticalMargin)
 		verticalMargin = verticalMargin + 20
 	end
 

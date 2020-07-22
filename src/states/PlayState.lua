@@ -36,21 +36,21 @@ function PlayState:update(dt)
 			end
 		end
 
-		if love.keyboard.isDown('w') then
+		if love.keyboard.isDown('w') or love.keyboard.isDown('up') then
 			for k, tile in pairs(self.tiles) do
 				tile.y = tile.y + 1
 			end
-		elseif love.keyboard.isDown('s') then
+		elseif love.keyboard.isDown('s') or love.keyboard.isDown('down') then
 			for k, tile in pairs(self.tiles) do
 				tile.y = tile.y - 1
 			end
 		end
 
-		if love.keyboard.isDown('a') then
+		if love.keyboard.isDown('a') or love.keyboard.isDown('left') then
 			for k, tile in pairs(self.tiles) do
 				tile.x = tile.x + 1
 			end
-		elseif love.keyboard.isDown('d') then
+		elseif love.keyboard.isDown('d') or love.keyboard.isDown('right') then
 			for k, tile in pairs(self.tiles) do
 				tile.x = tile.x - 1
 			end

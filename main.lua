@@ -9,6 +9,17 @@ function love.load()
 		resizable = true
 	})
 
+	fonts = {
+		primary = love.graphics.newImageFont(
+			'fonts/primary.png',
+			' abcdefghijklmnopqrstuvwxyz' ..
+			'ABCDEFGHIJKLMNOPQRSTUVWXYZ0' ..
+			'123456789.,!?-+/():;%&`\'*#=[]\"'
+		)
+	}
+	
+	love.graphics.setFont(fonts.primary)
+
 	gStateMachine = StateMachine {
 		['start'] = function() return StartState() end,
 		['play'] = function() return PlayState() end

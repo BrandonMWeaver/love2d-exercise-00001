@@ -16,6 +16,7 @@ function StartState:update(dt)
 
 	if love.keyboard.wasPressed('return') then
 		if self.menuIndex == 1 then
+			sounds.menu.select:play()
 			gStateMachine:change('play')
 		elseif self.menuIndex == 2 then
 			love.event.quit()
@@ -23,6 +24,7 @@ function StartState:update(dt)
 	end
 
 	if love.keyboard.wasPressed('up') or love.keyboard.wasPressed('w') then
+		sounds.menu.change:play()
 		if self.menuIndex == #self.menu then
 			self.menuIndex = 1
 		else
@@ -31,6 +33,7 @@ function StartState:update(dt)
 	end
 
 	if love.keyboard.wasPressed('down') or love.keyboard.wasPressed('s') then
+		sounds.menu.change:play()
 		if self.menuIndex == 1 then
 			self.menuIndex = #self.menu
 		else

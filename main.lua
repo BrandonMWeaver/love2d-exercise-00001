@@ -20,6 +20,13 @@ function love.load()
 	
 	love.graphics.setFont(fonts.primary)
 
+	sounds = {
+		menu = {
+			change = love.audio.newSource('sounds/menu-change.wav'),
+			select = love.audio.newSource('sounds/menu-select.wav')
+		}
+	}
+
 	gStateMachine = StateMachine {
 		['start'] = function() return StartState() end,
 		['play'] = function() return PlayState() end
